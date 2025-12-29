@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/await-thenable */
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
-import { sign, verify } from 'paseto-ts/v4'
 import * as dotenv from 'dotenv'
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 import { Logger } from 'winston'
@@ -14,6 +13,7 @@ export class AuthService {
   private privateKey: string
   private publicKey: string
   private issuer: string
+  private pasetoModule: any
 
   constructor(@Inject(WINSTON_MODULE_PROVIDER) private logger: Logger) {
     this.mode = process.env.AUTH_MODE ?? ''
@@ -29,6 +29,12 @@ export class AuthService {
         privateKey: this.privateKey,
       })}`,
     )
+
+    this.initPaseto()
+  }
+
+  private async initPaseto() {
+    this.pasetoModule = await import('paseto-ts/v4')
   }
 
   async signToken(payload: Record<string, any>, opts: { exp: string; type: 'access' | 'refresh' }): Promise<string> {
@@ -39,7 +45,11 @@ export class AuthService {
       const { userId = '', username = '', roles = [] } = payload as AuthPayload
       if (!userId || !username) throw new UnauthorizedException('User id is not set')
 
-      const token = await sign(
+      if (!this.pasetoModule) {
+        this.pasetoModule = await import('paseto-ts/v4')
+      }
+
+      const token = await this.pasetoModule.sign(
         this.privateKey,
         {
           userId,
@@ -65,7 +75,11 @@ export class AuthService {
       else if (!this.publicKey) throw new UnauthorizedException('Public key is not set')
       else if (!token) throw new UnauthorizedException('Token is not set')
 
-      const { payload } = (await verify(this.publicKey, token)) as { payload: AuthPayload }
+      if (!this.pasetoModule) {
+        this.pasetoModule = await import('paseto-ts/v4')
+      }
+
+      const { payload } = (await this.pasetoModule.verify(this.publicKey, token)) as { payload: AuthPayload }
       if (!payload) throw new UnauthorizedException('Failed to verify token')
       else if (payload.type !== type) throw new UnauthorizedException('Invalid token type')
 
