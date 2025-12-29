@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  relationMode = "prisma"
+}
+
+model User {
+  id          String    @id @db.VarChar(26)
+  username    String    @unique @db.VarChar(20)
+  fullName    String    @db.VarChar(64)
+  password    String    @db.VarChar(255)
+  createdDate DateTime  @default(now())
+  updatedDate DateTime? @updatedAt
+  Products    Product[]
+  Licenses    License[]
+
+  @@map("users")
+}
+
+model Product {
+  id             String           @id @db.VarChar(26)
+  name           String           @db.VarChar(64)
+  sku            String           @unique @db.VarChar(32)
+  createdBy      String           @db.VarChar(26)
+  isDeleted      Boolean          @default(false) @db.TinyInt
+  createdDate    DateTime         @default(now())
+  updatedDate    DateTime?        @updatedAt
+  creator        User             @relation(fields: [createdBy], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ProductLicense ProductLicense[]
+
+  // map foreign key
+  @@map("products")
+}
+
+model License {
+  id             String           @id @db.VarChar(26)
+  code           String           @unique @db.VarChar(32)
+  qty            Int              @db.UnsignedInt
+  createdBy      String           @db.VarChar(26)
+  isDeleted      Boolean          @default(false) @db.TinyInt
+  createdDate    DateTime         @default(now())
+  updatedDate    DateTime?        @updatedAt
+  creator        User             @relation(fields: [createdBy], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  ProductLicense ProductLicense[]
+
+  @@map("licenses")
+}
+
+model ProductLicense {
+  id         String    @id @db.VarChar(26)
+  productId  String    @db.VarChar(26)
+  licenseId  String    @db.VarChar(26)
+  deviceInfo String?   @db.VarChar(255)
+  macAddess  String?   @db.VarChar(128)
+  assignedAt DateTime? @default(now())
+  isActive   Boolean   @default(false) @db.TinyInt
+
+  // Relations to the parents
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  license License @relation(fields: [licenseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  // Useful indexes
+  @@index([productId])
+  @@index([licenseId])
+  // Optional: physical table name
+  @@map("product_licenses")
+}
