@@ -6,6 +6,8 @@ import { AppModule } from '../src/app.module'
 import { Logger } from 'winston'
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 describe('UserController', () => {
   let app: INestApplication<App>
   let logger: Logger
@@ -38,13 +40,13 @@ describe('UserController', () => {
 
       expect(response.status).toBe(201)
       expect(response.body).toBeInstanceOf(Object)
-      expect(response.body.data).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.id).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.username).toBe(uniqueUsername) // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.fullName).toBe('Test User Success') // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.password).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.password).not.toBe('password123') // Password should be hashed // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.createdDate).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data).toBeDefined()
+      expect(response.body.data.id).toBeDefined()
+      expect(response.body.data.username).toBe(uniqueUsername)
+      expect(response.body.data.fullName).toBe('Test User Success')
+      expect(response.body.data.password).toBeDefined()
+      expect(response.body.data.password).not.toBe('password123') // Password should be hashed
+      expect(response.body.data.createdDate).toBeDefined()
     })
 
     it('should successfully register a user with minimum length username', async () => {
@@ -58,7 +60,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.status).toBe(201)
-      expect(response.body.data).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data).toBeDefined()
     })
 
     it('should successfully register a user with long valid name', async () => {
@@ -73,8 +75,8 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.status).toBe(201)
-      expect(response.body.data).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.fullName).toBe(longName) // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data).toBeDefined()
+      expect(response.body.data.fullName).toBe(longName)
     })
 
     it('should reject duplicate username registration', async () => {
@@ -97,7 +99,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.status).toBe(400)
-      expect(response.body.errors).toBe('username already exists') // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.errors).toBe('username already exists')
     })
   })
 
@@ -110,7 +112,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -124,7 +126,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -138,7 +140,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -154,7 +156,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -168,7 +170,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -182,7 +184,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -198,7 +200,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -212,7 +214,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -226,7 +228,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
 
@@ -240,7 +242,7 @@ describe('UserController', () => {
       logger.info(response.body)
 
       expect(response.body).toBeInstanceOf(Object)
-      expect(response?.body?.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response?.body?.errors).toBeDefined()
       expect(response.status).toBe(400)
     })
   })
