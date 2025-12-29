@@ -37,20 +37,13 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(201)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data).toBeDefined()
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.id).toBeDefined()
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.code).toBe(uniqueCode)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.qty).toBe(10)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.createdBy).toBe('system')
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.isDeleted).toBe(false)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.createdDate).toBeDefined()
+      expect(response.body.data).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.id).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.code).toBe(uniqueCode) // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.qty).toBe(10) // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.createdBy).toBe('system') // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.isDeleted).toBe(false) // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.createdDate).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should successfully create a license with zero quantity', async () => {
@@ -64,10 +57,8 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(201)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data).toBeDefined()
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.qty).toBe(0)
+      expect(response.body.data).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.qty).toBe(0) // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should successfully create a license with large quantity', async () => {
@@ -81,10 +72,8 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(201)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data).toBeDefined()
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.data.qty).toBe(10000)
+      expect(response.body.data).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.data.qty).toBe(10000) // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should reject if license code already exists', async () => {
@@ -106,10 +95,8 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(400)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBeDefined()
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBe('license already exists')
+      expect(response.body.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+      expect(response.body.errors).toBe('license already exists') // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should reject if code is missing', async () => {
@@ -121,8 +108,7 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(400)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBeDefined()
+      expect(response.body.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should reject if quantity is missing', async () => {
@@ -134,8 +120,7 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(400)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBeDefined()
+      expect(response.body.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should reject if code is empty string', async () => {
@@ -148,8 +133,7 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(400)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBeDefined()
+      expect(response.body.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should reject if quantity is negative', async () => {
@@ -162,8 +146,7 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(400)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBeDefined()
+      expect(response.body.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should reject if quantity is not a number', async () => {
@@ -176,8 +159,7 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(400)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBeDefined()
+      expect(response.body.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
 
     it('should reject if code type is not a string', async () => {
@@ -190,8 +172,7 @@ describe('LicenseController', () => {
 
       expect(response.status).toBe(400)
       expect(response.body).toBeInstanceOf(Object)
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      expect(response.body.errors).toBeDefined()
+      expect(response.body.errors).toBeDefined() // eslint-disable-line @typescript-eslint/no-unsafe-member-access
     })
   })
 })
