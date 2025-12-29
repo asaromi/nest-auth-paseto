@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/await-thenable */
-import { Inject, Injectable, UnauthorizedException } from '@nestjs/common'
+import { Inject, Injectable, OnModuleInit, UnauthorizedException } from '@nestjs/common'
 import * as dotenv from 'dotenv'
 import { WINSTON_MODULE_PROVIDER } from 'nest-winston'
 import { Logger } from 'winston'
@@ -8,7 +8,7 @@ import { AuthPayload } from '../model/auth.model'
 dotenv.config()
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnModuleInit {
   private mode: string
   private privateKey: string
   private publicKey: string
@@ -29,8 +29,10 @@ export class AuthService {
         privateKey: this.privateKey,
       })}`,
     )
+  }
 
-    this.initPaseto()
+  async onModuleInit() {
+    await this.initPaseto()
   }
 
   private async initPaseto() {
